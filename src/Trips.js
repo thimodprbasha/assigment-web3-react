@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, Button, Container, Row, Col, Table } from "react-bootstrap";
 import Pagination from "react-bootstrap/Pagination";
+import { useNavigate } from "react-router-dom";
 
 const content_center = {
   display: "flex",
@@ -14,6 +15,7 @@ const chageColorRow = (condtion) => {
 };
 
 function Trips() {
+  const navigate = useNavigate();
   var perPage = 15;
   const [tripsData, setTripsData] = useState(null);
   const [page, setPage] = useState(1);
@@ -77,7 +79,12 @@ function Trips() {
               </thead>
               <tbody>
                 {tripsData.map((trip) => (
-                  <tr style={chageColorRow(trip)}>
+                  <tr
+                    style={chageColorRow(trip)}
+                    onClick={() => {
+                      navigate(`/trip/${trip._id}`);
+                    }}
+                  >
                     <td>{trip.bikeid}</td>
                     <td>{trip["start station name"]}</td>
                     <td>{trip["end station name"]}</td>
